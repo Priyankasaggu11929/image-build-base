@@ -1,13 +1,8 @@
 # ARG GOLANG_VERSION=1.22.4
 # FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
-ARG GOLANG_VERSION=1.23.4
 
-FROM --platform=$TARGETPLATFORM registry.suse.com/bci/golang:${GOLANG_VERSION} AS golang
-
-FROM registry.suse.com/bci/bci-base AS trivy
-RUN zypper ar --refresh http://download.opensuse.org/tumbleweed/repo/oss/ openSUSE-Tumbleweed-OSS && \
-    zypper --gpg-auto-import-keys ref && zypper install -y \
-    trivy
+#FROM --platform=$TARGETPLATFORM registry.suse.com/bci/golang:${GOLANG_VERSION} AS golang
+FROM --platform=$TARGETPLATFORM registry.suse.com/bci/golang AS golang
 
 # FROM alpine:3.18 as trivy-amd64
 # ARG TRIVY_VERSION=0.56.2
@@ -25,7 +20,9 @@ RUN zypper ar --refresh http://download.opensuse.org/tumbleweed/repo/oss/ openSU
 
 # FROM trivy-${TARGETARCH} as trivy-base
 
-FROM alpine:3.18
+# FROM alpine:3.18
+#FROM registry.suse.com/bci/bci-base
+FROM registry.opensuse.org/opensuse/leap:15.6
 ENV GOTOOLCHAIN=local
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -34,25 +31,29 @@ COPY --from=golang /usr/share/doc/packages/go/1*/ /usr/lib64/go/1.*/ /usr/local/
 # TODO(psaggu): check the 1777 permissions, and if it can be improved.
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 1777 "$GOPATH"
 WORKDIR $GOPATH
-RUN apk --no-cache add \
+# RUN apk --no-cache add \
+# RUN zypper ar --refresh http://download.opensuse.org/tumbleweed/repo/oss/ openSUSE-Tumbleweed-OSS && \
+#    zypper --gpg-auto-import-keys ref && zypper install -y \
+RUN zypper install -y \
     bash \
     coreutils \
     curl \
     docker \
     file \
-    g++ \
+    # g++ \
+    gcc-c++ \
     gcc \
-    git \
+    git-core \
     make \
     mercurial \
     rsync \
     subversion \
+    trivy \
     wget \
     yq \
     zstd
 COPY scripts/ /usr/local/go/bin/
 # COPY --from=trivy-base /usr/local/bin/ /usr/bin/
-COPY --from=trivy /usr/bin/trivy /usr/bin/trivy
 RUN set -x && \
     chmod -v +x /usr/local/go/bin/go-*.sh && \
     go version && \
