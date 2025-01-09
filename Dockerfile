@@ -1,6 +1,8 @@
-ARG GOLANG_VERSION=1.22.4
+#ARG GOLANG_VERSION=1.22.4
+#FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
+ARG GOLANG_VERSION=1.23.4
 
-FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
+FROM --platform=$TARGETPLATFORM registry.suse.com/bci/golang:${GOLANG_VERSION} AS golang
 
 FROM alpine:3.18 as trivy-amd64
 ARG TRIVY_VERSION=0.56.2
