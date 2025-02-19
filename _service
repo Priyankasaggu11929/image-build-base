@@ -4,7 +4,6 @@
     <param name="url">https://github.com/Priyankasaggu11929/image-build-base</param>
     <param name="revision">test-obs-build</param>
     <param name="without-version">yes</param>
-    <param name="extract">Dockerfile</param>
  </service>
  <service name="download_assets" />
 </services>
