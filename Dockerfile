@@ -6,14 +6,15 @@ FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golan
 
 FROM alpine:3.18 as trivy-amd64
 ARG TRIVY_VERSION=0.56.2
-RUN curl -sL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz
+RUN curl -O "https://github.com/aquasecurity/trivy/releases/download/v0.56.2/trivy_0.56.2_Linux-64bit.tar.gz"
+RUN curl -O "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
 RUN set -ex; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz; \
     mv trivy /usr/local/bin
 
 FROM alpine:3.18 as trivy-arm64
 ARG TRIVY_VERSION=0.56.2
-RUN curl -sL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz" -o trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz
+RUN curl -O "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz"
 RUN set -ex; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
