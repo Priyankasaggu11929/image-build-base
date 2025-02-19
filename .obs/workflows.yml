@@ -1,5 +1,8 @@
 rebuild_branch_test-obs-build:
   steps:
+    - trigger_services:
+        project: home:psaggu:test
+        package: image-build-base
     - rebuild_package:
         project: home:psaggu:test
         package: image-build-base
