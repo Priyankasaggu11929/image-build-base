@@ -1,7 +1,10 @@
-rebuild_master:
+rebuild_branch_test-obs-build:
   steps:
     - rebuild_package:
         project: home:psaggu:test
         package: image-build-base
   filters:
     event: push
+    branches:
+      only:
+      - test-obs-build
