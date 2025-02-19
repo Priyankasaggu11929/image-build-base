@@ -6,16 +6,16 @@ FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golan
 
 FROM alpine:3.18 as trivy-amd64
 ARG TRIVY_VERSION=0.56.2
+RUN apk --no-cache add curl
 RUN set -ex; \
-    apk --no-cache add curl \
     curl -sL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -o trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz; \
     mv trivy /usr/local/bin
 
 FROM alpine:3.18 as trivy-arm64
 ARG TRIVY_VERSION=0.56.2
+RUN apk --no-cache add curl
 RUN set -ex; \
-    apk --no-cache add curl \
     curl -sL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz" -o trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
