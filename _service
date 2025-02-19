@@ -1,9 +1,3 @@
 <services>
- <service name="obs_scm" >
-    <param name="scm">git</param>
-    <param name="url">https://github.com/Priyankasaggu11929/image-build-base</param>
-    <param name="revision">test-obs-build</param>
-    <param name="without-version">yes</param>
- </service>
  <service name="download_assets" />
 </services>
