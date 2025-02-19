@@ -1,3 +1,5 @@
+#!BuildTag: rancher/hardened-build-base:latest
+
 ARG GOLANG_VERSION=1.22.4
 
 FROM --platform=$TARGETPLATFORM library/golang:${GOLANG_VERSION}-alpine AS golang
