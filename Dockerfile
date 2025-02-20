@@ -18,6 +18,7 @@ RUN set -ex; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
 
+FROM trivy-amd64 as trivy-base
 
 FROM alpine:3.18
 ENV GOTOOLCHAIN=local
@@ -28,7 +29,7 @@ RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 1777 "$GOPATH"
 WORKDIR $GOPATH
 
 COPY scripts/ /usr/local/go/bin/
-
+COPY --from=trivy-base /usr/local/bin/ /usr/bin/
 RUN set -x && \
     chmod -v +x /usr/local/go/bin/go-*.sh && \
     go version
