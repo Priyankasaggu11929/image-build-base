@@ -18,6 +18,7 @@ RUN set -ex; \
     tar -xzf trivy_${TRIVY_VERSION}_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
 
+
 FROM trivy-amd64 as trivy-base
 
 FROM alpine:3.18
