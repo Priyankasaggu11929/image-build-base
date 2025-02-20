@@ -13,7 +13,7 @@ RUN set -ex; \
 
 FROM alpine:3.18 as trivy-arm64
 ARG TRIVY_VERSION=0.56.2
-#!RemoteAssetUrl: https://github.com/aquasecurity/trivy/releases/download/v0.56.2/trivy_v0.56.2_Linux-ARM64.tar.gz
+#!RemoteAssetUrl: https://github.com/aquasecurity/trivy/releases/download/v0.56.2/trivy_0.56.2_Linux-ARM64.tar.gz
 RUN set -ex; \
     tar -xzf trivy_v0.56.2_Linux-ARM64.tar.gz; \
     mv trivy /usr/local/bin
