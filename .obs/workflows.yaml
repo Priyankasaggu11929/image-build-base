@@ -1,0 +1,13 @@
+rebuild_branch_sle-bci-base:
+  steps:
+    - trigger_services:
+        project: home:psaggu:bci-based-images
+        package: test-imgae-build-base
+    - rebuild_package:
+        project: home:psaggu:bci-based-images
+        package: test-imgae-build-base
+  filters:
+    event: push
+    branches:
+      only:
+      - sle-bci-base
