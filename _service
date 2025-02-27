@@ -1,0 +1,4 @@
+<services>
+  <service name="download_assets" >
+  </service>
+</services>
