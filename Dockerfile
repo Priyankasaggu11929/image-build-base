@@ -15,7 +15,7 @@
 
 #!UseOBSRepositories
 
-#!BuildTag: rancher/image-build-base:1.24
+#!BuildTag: rancher/image-build-base:1.23
 #!BuildTag: rancher/image-build-base:latest
 #!BuildName: image-build-base
 
@@ -24,15 +24,15 @@ FROM registry.suse.com/bci/bci-base:15.6
 # Define labels according to https://en.opensuse.org/Building_derived_containers
 # labelprefix=com.suse.rancher.image.build.base
 LABEL org.opencontainers.image.authors="https://github.com/SUSE/bci/discussions"
-LABEL org.opencontainers.image.title="Rancher LTS Go 1.24 Base Image"
+LABEL org.opencontainers.image.title="Rancher LTS Go 1.23 Base Image"
 LABEL org.opencontainers.image.description="Base image for Rancher LTS"
-LABEL org.opencontainers.image.version="1.24"
+LABEL org.opencontainers.image.version="1.23"
 LABEL org.opencontainers.image.url="https://www.suse.com/products/base-container-images/"
 LABEL org.opencontainers.image.created="%BUILDTIME%"
 LABEL org.opencontainers.image.vendor="SUSE LLC"
 LABEL org.opencontainers.image.source="%SOURCEURL%"
-LABEL org.opencontainers.image.ref.name="1.24"
-LABEL org.opensuse.reference="registry.suse.com/rancher/image-build-base:1.24"
+LABEL org.opencontainers.image.ref.name="1.23"
+LABEL org.opensuse.reference="registry.suse.com/rancher/image-build-base:1.23"
 LABEL org.openbuildservice.disturl="%DISTURL%"
 LABEL com.suse.supportlevel="l3"
 LABEL com.suse.eula="sle-bci"
@@ -46,8 +46,8 @@ LABEL io.artifacthub.package.readme-url="%SOURCEURL%/README.md"
 RUN set -euo pipefail; \
     zypper -n install --no-recommends \
     # go
-        go1.24 \
-        go1.24-doc \
+        go1.23 \
+        go1.23-doc \
         make \
         curl \
         findutils \
@@ -77,11 +77,11 @@ RUN set -euo pipefail; \
 
 # only available on go's tsan_arch architectures
 #!ArchExclusiveLine: x86_64 aarch64 s390x ppc64le
-RUN set -euo pipefail; if zypper -n install go1.24-race; then zypper -n clean; fi
+RUN set -euo pipefail; if zypper -n install go1.23-race; then zypper -n clean; fi
 RUN set -euo pipefail; install -m 755 -d /go/bin /go/src
 RUN set -euo pipefail; rm -rf {/target,}/var/log/{alternatives.log,lastlog,tallylog,zypper.log,zypp/history,YaST2}
 
-ENV GOLANG_VERSION="1.24"
+ENV GOLANG_VERSION="1.23"
 ENV GOPATH="/go"
 ENV GOTOOLCHAIN="local"
 ENV PATH="$GOPATH/bin:/usr/local/go/bin:/root/go/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
