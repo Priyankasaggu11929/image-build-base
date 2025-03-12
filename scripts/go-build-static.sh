@@ -11,4 +11,5 @@ fi
 
 set -x
 
-exec go build -ldflags "-linkmode=external -extldflags \"-static \" ${GO_LDFLAGS}" "${@}"
+exec go build -ldflags "-linkmode=external -extldflags \"-static -Wl,--fatal-warnings\" ${GO_LDFLAGS}" "${@}"
+#exec go build -ldflags "-linkmode=external -extldflags \"-static \" ${GO_LDFLAGS}" "${@}"
